@@ -51,6 +51,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
         public ImageView moviePoster;
         public TextView textTitle;
+
         public LinearLayout linearLayout;
 
         public ViewHolder(@NonNull View itemView) {

@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -46,6 +47,7 @@ public class NowPlayingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_now_playing, container, false);
 
@@ -53,6 +55,7 @@ public class NowPlayingFragment extends Fragment {
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         movieModelList = new ArrayList<>();
 
@@ -77,7 +80,11 @@ public class NowPlayingFragment extends Fragment {
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject jo = array.getJSONObject(i);
                         MovieModel movies = new MovieModel(jo.getString("title"),
-                                jo.getString("poster_path"));
+                                jo.getString("poster_path"),
+                                jo.getDouble("vote_average"),
+                                jo.getString("overview"),
+                                jo.getBoolean("adult"),
+                                jo.getString("release_date"));
                         movieModelList.add(movies);
                     }
                     adapter = new MovieAdapter(movieModelList);
