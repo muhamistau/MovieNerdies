@@ -51,11 +51,10 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-//        getSupportActionBar().setElevation(0);
+        getSupportActionBar().setElevation(10);
         TextView textView = new TextView(this);
         textView.setText(title);
         textView.setTextSize(20);
-//        textView.setTypeface(null, Typeface.BOLD);
         textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         textView.setGravity(Gravity.CENTER);
         textView.setTextColor(getResources().getColor(R.color.colorPrimary));

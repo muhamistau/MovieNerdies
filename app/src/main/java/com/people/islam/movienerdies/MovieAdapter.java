@@ -1,6 +1,7 @@
 package com.people.islam.movienerdies;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
+
+    public static String KEY_TITLE = "title";
+    public static String KEY_POSTERURL = "posterurl";
+    public static String KEY_VOTE = "vote";
+    public static String KEY_OVERVIEW = "overview";
+    public static String KEY_ADULT = "adult";
+    public static String KEY_RELEASEDATE = "releasedate";
 
     private List<MovieModel> movieModelList;
     private Context context;
@@ -33,13 +41,27 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         final MovieModel movieModel = movieModelList.get(position);
         holder.textTitle.setText(movieModel.getTitle());
         Picasso.get()
                 .load("https://image.tmdb.org/t/p/w600_and_h900_bestv2"
                         + movieModel.getPosterUrl())
                 .into(holder.moviePoster);
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MovieModel movies = movieModelList.get(position);
+                Intent intent = new Intent(v.getContext(), MovieDetailActivity.class);
+                intent.putExtra(KEY_TITLE, movies.getTitle());
+                intent.putExtra(KEY_POSTERURL, movies.getPosterUrl());
+                intent.putExtra(KEY_VOTE, movies.getVote());
+                intent.putExtra(KEY_OVERVIEW, movies.getOverview());
+                intent.putExtra(KEY_ADULT, movies.isAdult());
+                intent.putExtra(KEY_RELEASEDATE, movies.getReleaseDate());
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
